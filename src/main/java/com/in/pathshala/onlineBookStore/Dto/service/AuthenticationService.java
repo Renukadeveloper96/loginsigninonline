@@ -31,7 +31,7 @@ public class AuthenticationService {
             throw new AuthenticationFailException(MessageStrings.AUTH_TOEKN_NOT_VALID);
         }
     }
-	private Object  getSeller(String token) {
+	public Seller  getSeller(String token) {
 		AuthenticationToken authenticationToken = tokenRepository.findTokenByToken(token);
         if (Helper.notNull(authenticationToken)) {
             if (Helper.notNull(authenticationToken.getSeller())) {

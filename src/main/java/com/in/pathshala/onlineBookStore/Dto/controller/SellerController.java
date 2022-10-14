@@ -45,8 +45,9 @@ public class SellerController {
 	public ResponseDto signup(@RequestBody SignupDto signupDto) throws NoSuchAlgorithmException {
 		return sellerService.signup(signupDto);
 	}
+	
 	@GetMapping("/all")
-    public List<Seller> findAllUser(@RequestParam("token") String token) throws AuthenticationFailException {
+    public List<Seller> findAllUser(@RequestParam("token") String token) {
         authenticationService.authenticate(token);
         return sellerRepository.findAll();
     }
@@ -54,7 +55,7 @@ public class SellerController {
     public Seller findUserById(@PathVariable long id ) throws AuthenticationFailException {
 		return sellerRepository.findById(id).get();
     }
-	@DeleteMapping("/deleteUser/{id}")
+	@DeleteMapping("/deleteSeller/{id}")
 	public void deleteProduct(@PathVariable long id) {
 	 logger.info("Deleting by id is executed");
 	 sellerService.deleteUserById(id);

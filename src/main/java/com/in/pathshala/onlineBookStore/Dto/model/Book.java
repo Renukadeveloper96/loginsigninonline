@@ -11,9 +11,9 @@ import javax.persistence.Table;
 public class  Book{
 @Id
 @GeneratedValue(strategy =GenerationType.IDENTITY)
-@Column(name="book_id")
-private long book_id;
-private String title;
+@Column(name="id")
+private long id;
+private String name;
 private String languange_name;
 private String num_pages;
 private long publisher_id;
@@ -22,14 +22,16 @@ private String publication_date;
 private long author_id;
 private String author_name;
 private String description;
+private int price;
 public Book() {
 //	this.publication_date=new Date();
 }
-public Book(long book_id, String title, String languange_name, String num_pages, long publisher_id,
-		String publisher_name, String publication_date, long author_id, String author_name, String description) {
+public Book(long id, String name, String languange_name, String num_pages, long publisher_id,
+		String publisher_name, String publication_date, long author_id, String author_name, String description,
+		int price) {
 	super();
-	this.book_id = book_id;
-	this.title = title;
+	this.id = id;
+	this.name = name;
 	this.languange_name = languange_name;
 	this.num_pages = num_pages;
 	this.publisher_id = publisher_id;
@@ -38,18 +40,19 @@ public Book(long book_id, String title, String languange_name, String num_pages,
 	this.author_id = author_id;
 	this.author_name = author_name;
 	this.description = description;
+	this.price = price;
 }
-public long getBook_id() {
-	return book_id;
+public long getId() {
+	return id;
 }
-public void setBook_id(long book_id) {
-	this.book_id = book_id;
+public void setId(long id) {
+	this.id = id;
 }
-public String getTitle() {
-	return title;
+public String getName() {
+	return name;
 }
-public void setTitle(String title) {
-	this.title = title;
+public void setName(String name) {
+	this.name = name;
 }
 public String getLanguange_name() {
 	return languange_name;
@@ -99,12 +102,18 @@ public String getDescription() {
 public void setDescription(String description) {
 	this.description = description;
 }
+public int getPrice() {
+	return price;
+}
+public void setPrice(int price) {
+	this.price = price;
+}
 @Override
 public String toString() {
-	return "Book [book_id=" + book_id + ", title=" + title + ", languange_name=" + languange_name + ", num_pages="
+	return "Book [book_id=" + id + ", name=" + name + ", languange_name=" + languange_name + ", num_pages="
 			+ num_pages + ", publisher_id=" + publisher_id + ", publisher_name=" + publisher_name
 			+ ", publication_date=" + publication_date + ", author_id=" + author_id + ", author_name=" + author_name
-			+ ", description=" + description + "]";
+			+ ", description=" + description + ", price=" + price + "]";
 }
 
 }

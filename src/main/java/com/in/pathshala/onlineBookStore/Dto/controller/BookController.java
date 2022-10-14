@@ -91,13 +91,13 @@ public class BookController {
 	}
 	@PutMapping(value="/updateBook")
 	public ResponseEntity<?>updateBook (@RequestBody Book bookRequest){
-		logger.info("User Id coming from Request::" + bookRequest.getBook_id());
-		Book result=bookService.findBookById(bookRequest.getBook_id());
+//		logger.info("User Id coming from Request::" + bookRequest.getBook_id());
+		Book result=bookService.findBookById(bookRequest.getId());
 //		Product result = productService.findProductById(bookRequest.getId());
 		if(result!=null) {
 		logger.info("result of UpdateBook is executed");
-		result.setBook_id(bookRequest.getBook_id());
-		result.setTitle(bookRequest.getTitle());
+//		result.setBook_id(bookRequest.getd());
+		result.setName(bookRequest.getName());
 		result.setLanguange_name(bookRequest.getLanguange_name());
 		result.setNum_pages(bookRequest.getNum_pages());
 		result.setPublisher_id(bookRequest.getPublisher_id());
