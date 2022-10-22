@@ -68,7 +68,7 @@ public class BookController {
 		}
 		
 	}
-	@PostMapping(value="/saveBook")
+	@PostMapping(value="/createBook")
 	public ResponseEntity<?>saveBook(@RequestBody Book book){
 		logger.info("Requesting savebook from book controller");
 		Book result =bookService.saveBook(book);
@@ -125,6 +125,5 @@ public class BookController {
 	public void deleteProduct(@PathVariable long id) {
 	 logger.info("Deleting by id is executed");
 	 bookService.deleteBookById(id);
-	 
 }
 }

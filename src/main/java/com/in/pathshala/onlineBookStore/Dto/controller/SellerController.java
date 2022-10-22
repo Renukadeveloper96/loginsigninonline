@@ -22,9 +22,9 @@ import com.in.pathshala.onlineBookStore.Dto.Seller.SignInResponseDto;
 import com.in.pathshala.onlineBookStore.Dto.Seller.SignupDto;
 import com.in.pathshala.onlineBookStore.Dto.exceptions.AuthenticationFailException;
 import com.in.pathshala.onlineBookStore.Dto.model.Seller;
-import com.in.pathshala.onlineBookStore.Dto.repository.SellerRepository;
+import com.in.pathshala.onlineBookStore.Dto.repository.SellerRepository1;
 import com.in.pathshala.onlineBookStore.Dto.service.AuthenticationService;
-import com.in.pathshala.onlineBookStore.Dto.service.SellerService;
+import com.in.pathshala.onlineBookStore.Dto.service.SellerService1;
 
 @RequestMapping("seller")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,38 +32,50 @@ import com.in.pathshala.onlineBookStore.Dto.service.SellerService;
 public class SellerController {
 
 	Logger logger = LoggerFactory.getLogger(SellerController.class);
+	
 	@Autowired
-	SellerService sellerService;
+	SellerService1 sellerService1;
 	
 	@Autowired
     AuthenticationService authenticationService;
 	
+	
 	@Autowired
-    SellerRepository sellerRepository;
+    SellerRepository1 sellerRepository1;
 
+	//signup:localhost:8085/user/signup
 	@PostMapping("/signup")
 	public ResponseDto signup(@RequestBody SignupDto signupDto) throws NoSuchAlgorithmException {
-		return sellerService.signup(signupDto);
+		return sellerService1.signup(signupDto);
 	}
+
+//	@PostMapping("/signupp")
+//	public ResponseDto signupp(@RequestBody Seller seller) throws NoSuchAlgorithmException {
+//		return sellerService1.signupp(seller);
+//	}
 	
+	//localhost:8085/user/all?token=24d7755e-8916-4a03-b43d-4ad61ef4afe2
 	@GetMapping("/all")
-    public List<Seller> findAllUser(@RequestParam("token") String token) {
+    public List<Seller> findAllSeller(@RequestParam("token") String token) {
         authenticationService.authenticate(token);
-        return sellerRepository.findAll();
+        return sellerRepository1.findAll();
     }
+	//localhost:8085/user/all/2?token=24d7755e-8916-4a03-b43d-4ad61ef4afe2
 	@GetMapping("/all/{id}")
     public Seller findUserById(@PathVariable long id ) throws AuthenticationFailException {
-		return sellerRepository.findById(id).get();
+		return sellerRepository1.findById(id).get();
     }
+	//deleteProduct:localhost:8085/seller/deleteSeller/8
 	@DeleteMapping("/deleteSeller/{id}")
 	public void deleteProduct(@PathVariable long id) {
 	 logger.info("Deleting by id is executed");
-	 sellerService.deleteUserById(id);
+	 sellerService1.deleteSellerById(id);
 	 
 }
+	//signin:localhost:8085/seller/signin
 	@PostMapping("/signin")
 	public  SignInResponseDto signIn(@RequestBody SignInDto signInDto) {
-		return sellerService.signIn(signInDto);
+		return sellerService1.signIn(signInDto);
 	}
 	
 }

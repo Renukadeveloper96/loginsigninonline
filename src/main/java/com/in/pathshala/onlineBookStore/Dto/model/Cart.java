@@ -23,7 +23,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
     
     @Column(name = "created_date")
     private Date createdDate;
@@ -38,6 +38,7 @@ public class Cart {
     private Seller seller;
     
     private int quantity;
+    private Double cartAmount;
 
     public Cart() {}
     
@@ -47,23 +48,15 @@ public class Cart {
         this.quantity = quantity;
         this.createdDate = new Date();
     }
-	public Cart(Integer id, Date createdDate, Book book, Seller seller, int quantity) {
-		this.id = id;
-		this.createdDate = createdDate;
-		this.book = book;
-		this.seller = seller;
-		this.quantity = quantity;
-	}
 
-
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
+	
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -96,12 +89,32 @@ public class Cart {
 		this.quantity = quantity;
 	}
 
+	
+	public Double getCartAmount() {
+		return cartAmount;
+	}
+
+	public void setCartAmount(Double cartAmount) {
+		this.cartAmount = cartAmount;
+	}
+
+	public Cart(long id, Date createdDate, Book book, Seller seller, int quantity, Double cartAmount) {
+		super();
+		this.id = id;
+		this.createdDate = createdDate;
+		this.book = book;
+		this.seller = seller;
+		this.quantity = quantity;
+		this.cartAmount = cartAmount;
+	}
 
 	@Override
 	public String toString() {
 		return "Cart [id=" + id + ", createdDate=" + createdDate + ", book=" + book + ", seller=" + seller
-				+ ", quantity=" + quantity + "]";
+				+ ", quantity=" + quantity + ", cartAmount=" + cartAmount + "]";
 	}
-    
+
+	
+	
     
 }

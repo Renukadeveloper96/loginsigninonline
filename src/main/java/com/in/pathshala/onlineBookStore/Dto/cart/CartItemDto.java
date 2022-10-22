@@ -7,8 +7,8 @@ import com.in.pathshala.onlineBookStore.Dto.model.Cart;
 
 
 public class CartItemDto {
-	 private Integer id;
-	    private @NotNull Integer quantity;
+	 private long id;
+	    private @NotNull long quantity;
 	    private @NotNull Book book;
 
 	    public CartItemDto() {
@@ -25,19 +25,19 @@ public class CartItemDto {
 			return "CartItemDto [id=" + id + ", quantity=" + quantity + ", book=" + book + "]";
 		}
 
-		public Integer getId() {
+		public long getId() {
 			return id;
 		}
 
-		public void setId(Integer id) {
+		public void setId(long id) {
 			this.id = id;
 		}
 
-		public Integer getQuantity() {
+		public long getQuantity() {
 			return quantity;
 		}
 
-		public void setQuantity(Integer quantity) {
+		public void setQuantity(long quantity) {
 			this.quantity = quantity;
 		}
 

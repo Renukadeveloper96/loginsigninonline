@@ -22,10 +22,10 @@ import com.in.pathshala.onlineBookStore.Dto.exceptions.BookNotExistException;
 import com.in.pathshala.onlineBookStore.Dto.exceptions.CartItemNotExistException;
 import com.in.pathshala.onlineBookStore.Dto.model.Book;
 import com.in.pathshala.onlineBookStore.Dto.model.Seller;
-import com.in.pathshala.onlineBookStore.Dto.repository.SellerRepository;
 import com.in.pathshala.onlineBookStore.Dto.service.AuthenticationService;
 import com.in.pathshala.onlineBookStore.Dto.service.BookService;
-import com.in.pathshala.onlineBookStore.Dto.service.CartService;
+import com.in.pathshala.onlineBookStore.Dto.service.CartService1;
+import com.in.pathshala.onlineBookStore.Dto.service.SellerService1;
 import com.in.pathshala.onlineBookStore.common.ApiResponse;
 
 
@@ -36,10 +36,10 @@ import com.in.pathshala.onlineBookStore.common.ApiResponse;
 public class CartController {
 
 	@Autowired
-    private CartService cartService;
+    private CartService1 cartService1;
 	
 	@Autowired
-	private SellerRepository sellerRepository;
+	private SellerService1 sellerService1;
 
     @Autowired
     private BookService bookService;
@@ -47,20 +47,22 @@ public class CartController {
 	    private AuthenticationService authenticationService;
 	 
 	 @PostMapping("/add")
+//	    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto,
+//	                                                 @RequestParam("token") String token) throws AuthenticationFailException, BookNotExistException {
 	    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto,
-	                                                 @RequestParam("token") String token) throws AuthenticationFailException, BookNotExistException {
-	        authenticationService.authenticate(token);
-	        Seller seller = sellerRepository.findSellerById(addToCartDto.getSellerId());
+                @RequestParam("token") String token) {       
+		 	authenticationService.authenticate(token);
+	        Seller seller = sellerService1.findSellerById(addToCartDto.getSellerId());
 	        Book book = bookService.findBookById(addToCartDto.getBookId());
 	        System.out.println("book to add"+  book.getName());
-	        cartService.addToCart(addToCartDto, book, seller);
+	        cartService1.addToCart(addToCartDto, book, seller);
 	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Added to cart"), HttpStatus.CREATED);
 	    }
-	 @GetMapping("/")
+	 @GetMapping("/all")
 	    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) throws AuthenticationFailException {
 	        authenticationService.authenticate(token);
 	        Seller seller = authenticationService.getSeller(token);
-	        CartDto cartDto = cartService.listCartItems(seller);
+	        CartDto cartDto = cartService1.listCartItems(seller);
 	        return new ResponseEntity<CartDto>(cartDto,HttpStatus.OK);
 	    }
 	    @PutMapping("/update/{cartItemId}")
@@ -69,7 +71,7 @@ public class CartController {
 	        authenticationService.authenticate(token);
 	        Seller seller = authenticationService.getSeller(token);
 	        Book book = bookService.findBookById(cartDto.getBookId());
-	        cartService.updateCartItem(cartDto, seller,book);
+	        cartService1.updateCartItem(cartDto, seller,book);
 	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
 	    }
 
@@ -77,7 +79,7 @@ public class CartController {
 	    public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("cartItemId") int itemID,@RequestParam("token") String token) throws AuthenticationFailException, CartItemNotExistException {
 	        authenticationService.authenticate(token);
 	        long sellerId = authenticationService.getSeller(token).getId();
-	        cartService.deleteCartItem(itemID, sellerId);
+	        cartService1.deleteCartItem(itemID, sellerId);
 	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);
 	    }
 }

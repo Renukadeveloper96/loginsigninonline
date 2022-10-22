@@ -1,14 +1,13 @@
 package com.in.pathshala.onlineBookStore.Dto.cart;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public class AddToCartDto {
         @NotBlank
 	    private   Integer bookId;
 	    private  Integer quantity;
 	    private Integer sellerId;
-	    
+	    private Double cartAmount;
 	    public AddToCartDto() {
 	    }
 	    
@@ -41,13 +40,30 @@ public class AddToCartDto {
 		public void setQuantity(Integer quantity) {
 			this.quantity = quantity;
 		}
+		
+
+
+		public Double getCartAmount() {
+			return cartAmount;
+		}
+
+
+
+		public void setCartAmount(Double cartAmount) {
+			this.cartAmount = cartAmount;
+		}
 
 
 
 		@Override
 		public String toString() {
-			return "AddToCartDto [bookId=" + bookId + ", quantity=" + quantity + ", sellerId=" + sellerId + "]";
+			return "AddToCartDto [bookId=" + bookId + ", quantity=" + quantity + ", sellerId=" + sellerId
+					+ ", cartAmount=" + cartAmount + "]";
 		}
+
+
+
+		
 
 		
 
