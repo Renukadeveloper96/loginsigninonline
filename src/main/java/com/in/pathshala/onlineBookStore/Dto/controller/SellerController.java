@@ -44,7 +44,7 @@ public class SellerController {
     SellerRepository1 sellerRepository1;
 
 	//signup:localhost:8085/user/signup
-	@PostMapping("/signup")
+	@PostMapping("/signUp")
 	public ResponseDto signup(@RequestBody SignupDto signupDto) throws NoSuchAlgorithmException {
 		return sellerService1.signup(signupDto);
 	}	
