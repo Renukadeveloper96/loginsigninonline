@@ -14,13 +14,6 @@ public interface SellerService1 {
     public Seller saveSeller(Seller seller);
     public Seller updateSeller(Seller seller);
     public void deleteSellerById(long id);
-//    ResponseDto signupp(Seller seller);
-    Seller findSellerByEmail(String email);
 	ResponseDto signup(SignupDto signupDto);
 	SignInResponseDto signIn(SignInDto signInDto);
-
- 
-   
-   
-    
 }

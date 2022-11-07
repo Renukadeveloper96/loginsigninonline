@@ -1,15 +1,15 @@
 package com.in.pathshala.onlineBookStore.Dto.cart;
 
-import javax.validation.constraints.NotNull;
 
+import com.in.pathshala.onlineBookStore.Dto.checkout.CheckoutItemDto;
 import com.in.pathshala.onlineBookStore.Dto.model.Book;
 import com.in.pathshala.onlineBookStore.Dto.model.Cart;
 
 
 public class CartItemDto {
 	 private long id;
-	    private @NotNull long quantity;
-	    private @NotNull Book book;
+	    private  long quantity;
+	    private  Book book;
 
 	    public CartItemDto() {
 	    }
@@ -47,8 +47,5 @@ public class CartItemDto {
 
 		public void setBook(Book book) {
 			this.book = book;
-		}
-
-	   
-	    
+		}	    
 }

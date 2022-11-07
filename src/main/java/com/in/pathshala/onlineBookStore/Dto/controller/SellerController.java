@@ -47,13 +47,7 @@ public class SellerController {
 	@PostMapping("/signup")
 	public ResponseDto signup(@RequestBody SignupDto signupDto) throws NoSuchAlgorithmException {
 		return sellerService1.signup(signupDto);
-	}
-
-//	@PostMapping("/signupp")
-//	public ResponseDto signupp(@RequestBody Seller seller) throws NoSuchAlgorithmException {
-//		return sellerService1.signupp(seller);
-//	}
-	
+	}	
 	//localhost:8085/user/all?token=24d7755e-8916-4a03-b43d-4ad61ef4afe2
 	@GetMapping("/all")
     public List<Seller> findAllSeller(@RequestParam("token") String token) {
@@ -61,6 +55,7 @@ public class SellerController {
         return sellerRepository1.findAll();
     }
 	//localhost:8085/user/all/2?token=24d7755e-8916-4a03-b43d-4ad61ef4afe2
+	//localhost:8085/seller/all/9
 	@GetMapping("/all/{id}")
     public Seller findUserById(@PathVariable long id ) throws AuthenticationFailException {
 		return sellerRepository1.findById(id).get();

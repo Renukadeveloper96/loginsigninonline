@@ -23,7 +23,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     
     @Column(name = "created_date")
     private Date createdDate;
@@ -49,11 +49,11 @@ public class Cart {
         this.createdDate = new Date();
     }
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
@@ -98,7 +98,7 @@ public class Cart {
 		this.cartAmount = cartAmount;
 	}
 
-	public Cart(long id, Date createdDate, Book book, Seller seller, int quantity, Double cartAmount) {
+	public Cart(int id, Date createdDate, Book book, Seller seller, int quantity, Double cartAmount) {
 		super();
 		this.id = id;
 		this.createdDate = createdDate;
@@ -112,9 +112,5 @@ public class Cart {
 	public String toString() {
 		return "Cart [id=" + id + ", createdDate=" + createdDate + ", book=" + book + ", seller=" + seller
 				+ ", quantity=" + quantity + ", cartAmount=" + cartAmount + "]";
-	}
-
-	
-	
-    
+	}    
 }

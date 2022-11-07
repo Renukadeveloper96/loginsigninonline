@@ -1,7 +1,8 @@
 package com.in.pathshala.onlineBookStore.Dto.service;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +21,14 @@ import com.in.pathshala.onlineBookStore.Dto.cart.CartDto;
 import com.in.pathshala.onlineBookStore.Dto.cart.CartItemDto;
 import com.in.pathshala.onlineBookStore.Dto.checkout.CheckoutItemDto;
 import com.in.pathshala.onlineBookStore.Dto.exceptions.OrderNotFoundException;
+import com.in.pathshala.onlineBookStore.Dto.model.Book;
 import com.in.pathshala.onlineBookStore.Dto.model.Order;
 import com.in.pathshala.onlineBookStore.Dto.model.OrderItem;
 import com.in.pathshala.onlineBookStore.Dto.model.Seller;
+import com.in.pathshala.onlineBookStore.Dto.repository.BookRepository;
 import com.in.pathshala.onlineBookStore.Dto.repository.OrderItemsRepository;
 import com.in.pathshala.onlineBookStore.Dto.repository.OrderRepository;
+import com.in.pathshala.onlineBookStore.Dto.repository.SellerRepository1;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -38,15 +42,20 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderItemsRepository orderItemsRepository;
 
-	@Override
-	public List<Order> findAllByUserOrderByCreatedDateDesc(Seller seller) {
-		return orderRepository.findAllBySellerOrderByCreatedDateDesc(seller);
-	}
+	@Autowired
+	private BookRepository bookRepository;
 
-	
-	private String baseURL="https://infallible-swartz-b50174.netlify.app";
+	@Autowired
+	private SellerRepository1 sellerRepository1;
 
-	private String apiKey="STRIPE SECRET KEY";
+//	@Override
+//	public List<Order> findAllByUserOrderByCreatedDateDesc(Seller seller) {
+//		return orderRepository.findAllBySellerOrderByCreatedDateDesc(seller);
+//	}
+
+	private String baseURL = "https://infallible-swartz-b50174.netlify.app";
+
+	private String apiKey = "STRIPE SECRET KEY";
 
 	SessionCreateParams.LineItem.PriceData createPriceData(CheckoutItemDto checkoutItemDto) {
 		return SessionCreateParams.LineItem.PriceData.builder().setCurrency("usd")
@@ -64,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
 				.setQuantity(Long.parseLong(String.valueOf(checkoutItemDto.getQuantity()))).build();
 	}
 
+	// create session from list of checkout items
 	public Session createSession(List<CheckoutItemDto> checkoutItemDtoList) throws StripeException {
 
 		// supply success and failure url for stripe
@@ -77,6 +87,14 @@ public class OrderServiceImpl implements OrderService {
 
 		// for each product compute SessionCreateParams.LineItem
 		for (CheckoutItemDto checkoutItemDto : checkoutItemDtoList) {
+			OrderItem orderItem = new OrderItem();
+			orderItem.setCreatedDate(new Date());
+			orderItem.setQuantity(checkoutItemDto.getQuantity());
+			Book book = bookRepository.findById(checkoutItemDto.getBookId()).get();
+			orderItem.setBook(book);
+			
+			// add to order item list
+			orderItemsRepository.save(orderItem);
 			sessionItemsList.add(createSessionLineItem(checkoutItemDto));
 		}
 
@@ -110,6 +128,7 @@ public class OrderServiceImpl implements OrderService {
 			orderItem.setBook(cartItemDto.getBook());
 			orderItem.setQuantity(cartItemDto.getQuantity());
 			orderItem.setOrder(newOrder);
+			orderItem.setSeller(seller);	
 			// add to order item list
 			orderItemsRepository.save(orderItem);
 		}
@@ -118,6 +137,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public List<Order> listOrders(Seller seller) {
+		return orderRepository.findAllBySellerIdOrderByCreatedDateDesc(seller);
+	}
+
 	public Order getOrder(long orderId) throws OrderNotFoundException {
 		Optional<Order> order = orderRepository.findById(orderId);
 		if (order.isPresent()) {
@@ -127,7 +150,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> listOrders(Seller seller) {
-		return orderRepository.findAllBySellerOrderByCreatedDateDesc(seller);
+	public List<Order> findAllByUserOrderByCreatedDateDesc(Seller seller) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
+
 }

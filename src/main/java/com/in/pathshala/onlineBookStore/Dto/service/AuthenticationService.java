@@ -20,7 +20,6 @@ public class AuthenticationService {
 		tokenRepository.save(authenticationToken);
 	}
 	public AuthenticationToken getToken(Seller seller) {
-		// TODO Auto-generated method stub
 		return tokenRepository.findBySeller(seller);
 	}
 	public void authenticate(String token) throws AuthenticationFailException {

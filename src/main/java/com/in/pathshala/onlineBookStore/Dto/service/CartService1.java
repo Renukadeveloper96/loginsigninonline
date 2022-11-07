@@ -12,9 +12,10 @@ public interface CartService1 {
 	public void addToCart(AddToCartDto addToCartDto, Book book, Seller seller);
 	public CartDto listCartItems(Seller seller);
 //	void deleteById(long id); 
-	public void updateCartItem(AddToCartDto cartDto, Seller seller,Book book);
+	public void updateCartItem(int id,AddToCartDto cartDto, Seller seller,Book book);
 	public void deleteCartItem(int id,long sellerId) ;
-	public void deleteCartItems(int sellerId);
+//	public void deleteCartItems(int sellerId);
 	public void deleteSellerCartItems(Seller seller);
+
 	    
 }

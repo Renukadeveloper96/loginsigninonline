@@ -28,9 +28,6 @@ import com.in.pathshala.onlineBookStore.Dto.service.CartService1;
 import com.in.pathshala.onlineBookStore.Dto.service.SellerService1;
 import com.in.pathshala.onlineBookStore.common.ApiResponse;
 
-
-
-
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -66,13 +63,14 @@ public class CartController {
 	        return new ResponseEntity<CartDto>(cartDto,HttpStatus.OK);
 	    }
 	    @PutMapping("/update/{cartItemId}")
-	    public ResponseEntity<ApiResponse> updateCartItem(@RequestBody @Valid AddToCartDto cartDto,
+	    public ResponseEntity<ApiResponse> updateCartItem(@PathVariable("cartItemId") int itemID,@RequestBody  AddToCartDto cartDto,
 	                                                      @RequestParam("token") String token) throws AuthenticationFailException,BookNotExistException {
 	        authenticationService.authenticate(token);
+	        
 	        Seller seller = authenticationService.getSeller(token);
 	        Book book = bookService.findBookById(cartDto.getBookId());
-	        cartService1.updateCartItem(cartDto, seller,book);
-	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
+	        cartService1.updateCartItem(itemID,cartDto, seller,book);
+	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Book has been updated"), HttpStatus.OK);
 	    }
 
 	    @DeleteMapping("/delete/{cartItemId}")

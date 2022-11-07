@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.in.pathshala.onlineBookStore.Dto.model.OrderItem;
 
+
 @Repository
 public interface OrderItemsRepository extends JpaRepository<OrderItem,Long> {
 }

@@ -7,5 +7,6 @@ import com.in.pathshala.onlineBookStore.Dto.model.OrderItem;
 public interface OrderItemsService {
 
 	  public void addOrderedProducts(OrderItem orderItem);
+	  
 	 
 }

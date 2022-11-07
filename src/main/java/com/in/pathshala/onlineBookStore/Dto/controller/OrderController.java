@@ -40,20 +40,31 @@ public class OrderController {
 	public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList)
 			throws StripeException {
 		// create the stripe session
-		Session session = orderService.createSession(checkoutItemDtoList);
-		StripeResponse stripeResponse = new StripeResponse(session.getId());
+		StripeResponse stripeResponse = null;
+		try {
+			Session session = orderService.createSession(checkoutItemDtoList);
+			stripeResponse = new StripeResponse(session.getId());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		// send the stripe session id in response
 		return new ResponseEntity<StripeResponse>(stripeResponse, HttpStatus.OK);
 	}
-	@PostMapping("/check")
-	public ResponseEntity<Void>postdata(@RequestBody List<Seller>test){
-		return  new ResponseEntity<Void>( HttpStatus.OK);
-	}
+//	 @PostMapping("/create-checkout-session")
+//	    public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList) throws StripeException {
+//	        // create the stripe session
+//	        Session session = orderService.createSession(checkoutItemDtoList);
+//	        StripeResponse stripeResponse = new StripeResponse(session.getId());
+//	        // send the stripe session id in response
+//	        return new ResponseEntity<StripeResponse>(stripeResponse, HttpStatus.OK);
+//	    }
 
 	// place order after checkout
 	@PostMapping("/add")
+//	public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token,
+//			@RequestParam("sessionId") String sessionId) throws AuthenticationFailException {
 	public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token,
-			@RequestParam("sessionId") String sessionId) throws AuthenticationFailException {
+			@RequestParam("sessionId") String sessionId){
 		// validate token
 		authenticationService.authenticate(token);
 		// retrieve user

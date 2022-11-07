@@ -12,6 +12,7 @@ import com.in.pathshala.onlineBookStore.Dto.model.Seller;
 public interface OrderRepository extends JpaRepository<Order,Long>{
 
 
-	List<Order> findAllBySellerOrderByCreatedDateDesc(Seller seller);
+	List<Order> findAllBySellerIdOrderByCreatedDateDesc(Seller seller);
+	
 
 }

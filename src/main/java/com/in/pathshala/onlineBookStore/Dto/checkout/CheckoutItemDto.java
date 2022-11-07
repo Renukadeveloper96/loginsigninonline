@@ -7,15 +7,20 @@ public class CheckoutItemDto {
 	private double price;
 	private long bookId;
 	private long sellerId;
+	private long orderId;
+	
 
-	public CheckoutItemDto(String bookName, long quantity, double price, long bookId, long sellerId) {
+	public CheckoutItemDto(String bookName, long quantity, double price, long bookId, long sellerId, long orderId) {
+		super();
 		this.bookName = bookName;
 		this.quantity = quantity;
 		this.price = price;
 		this.bookId = bookId;
 		this.sellerId = sellerId;
+		this.orderId = orderId;
 	}
 
+	
 	public String getBookName() {
 		return bookName;
 	}
@@ -54,6 +59,16 @@ public class CheckoutItemDto {
 
 	public void setBookId(long bookId) {
 		this.bookId = bookId;
+	}
+
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
 	}
 
 }

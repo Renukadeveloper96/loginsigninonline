@@ -81,7 +81,7 @@ public class BookController {
 			return ResponseEntity.ok(responseDto);
 		}
 		else {
-			logger.error("GetBookById list is null");
+			logger.error("save Book list is null");
 			BaseResponseDTO responseDto=new BaseResponseDTO();
 			responseDto.setError(false);
 			responseDto.setHttpCode("400");
@@ -93,10 +93,8 @@ public class BookController {
 	public ResponseEntity<?>updateBook (@RequestBody Book bookRequest){
 //		logger.info("User Id coming from Request::" + bookRequest.getBook_id());
 		Book result=bookService.findBookById(bookRequest.getId());
-//		Product result = productService.findProductById(bookRequest.getId());
 		if(result!=null) {
 		logger.info("result of UpdateBook is executed");
-//		result.setBook_id(bookRequest.getd());
 		result.setName(bookRequest.getName());
 		result.setLanguange_name(bookRequest.getLanguange_name());
 		result.setNum_pages(bookRequest.getNum_pages());

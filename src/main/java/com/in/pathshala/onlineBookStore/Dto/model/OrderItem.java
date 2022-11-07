@@ -1,10 +1,18 @@
 package com.in.pathshala.onlineBookStore.Dto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orderitems")
@@ -16,10 +24,10 @@ public class OrderItem {
 
 
     @Column(name = "quantity")
-    private @NotNull long quantity;
+    private  long quantity;
 
     @Column(name = "price")
-    private @NotNull double price;
+    private  double price;
 
 
     @Column(name = "created_date")
@@ -34,21 +42,61 @@ public class OrderItem {
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
-    public OrderItem(){}
+    @ManyToOne
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
+    private Seller seller;
+    
+    public OrderItem() {}
 
-    public OrderItem(Order order, @NotNull Book book, @NotNull long quantity, @NotNull double price) {
-        this.book = book;
-        this.quantity = quantity;
-        this.price = price;
-        this.order= order;
-        this.createdDate = new Date();
-    }
-    public long getId() {
+	public OrderItem(long id, long quantity, double price, Date createdDate, Order order, Book book, Seller seller) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.price = price;
+		this.createdDate = createdDate;
+		this.order = order;
+		this.book = book;
+		this.seller = seller;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(long quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public Book getBook() {
@@ -59,40 +107,14 @@ public class OrderItem {
 		this.book = book;
 	}
 
-
-    public long getQuantity() {
-		return quantity;
+	public Seller getSeller() {
+		return seller;
 	}
 
-	public void setQuantity(long quantity) {
-		this.quantity = quantity;
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+	
+    
 }

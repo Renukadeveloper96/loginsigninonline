@@ -30,32 +30,10 @@ public class CartServiceImpl1 implements CartService1{
 	        this.cartRepository1 = cartRepository1;
 	    }
 
-//	@Override
-//	public List<Cart> findAllBySellerOrderByCreatedDateDesc() {
-//		try {
-//			logger.info("requesting findAllBySellerOrderByCreatedDesc from CartServiceImpl1");
-//			return cartRepository1.findAll();
-//		}catch(Exception e) {
-//			logger.error("try catch block in findAllBySellerOrderByCreatedDesc from CartServiceImpl");
-//			return null;
-//		}
-//	}
-
-//	@Override
-//	public void deleteBookById(long id) {
-//		logger.info("requesting deleteBySeller from CartServiceImpl");
-//		 cartRepository1.deleteById(id);
-//		
-//	}
-
-//	@Override
-//	public void addToCart(AddToCartDto addToCartDto, Book book, Seller seller) {
-//		Cart cart = new Cart(book, addToCartDto.getQuantity(), seller);
-//        cartRepository.save(cart);
-//	}
 	 public void addToCart(AddToCartDto addToCartDto, Book book, Seller seller){
 	        Cart cart = new Cart(book, addToCartDto.getBookId(), seller);
 	        double totalAmount= book.getPrice()*addToCartDto.getQuantity();
+	        cart.setQuantity(addToCartDto.getQuantity());
 	        cart.setCartAmount(totalAmount);
 	        cartRepository1.save(cart);
 	    }
@@ -81,8 +59,8 @@ public class CartServiceImpl1 implements CartService1{
 
 
 	@Override
-	public void updateCartItem(AddToCartDto cartDto, Seller seller, Book book) {
-		Cart cart = cartRepository1.getOne(cartDto.getBookId());
+	public void updateCartItem(int id,AddToCartDto cartDto, Seller seller, Book book) {
+		Cart cart = cartRepository1.findById(id).get();
         cart.setQuantity(cartDto.getQuantity());
         cart.setCreatedDate(new Date());
         cartRepository1.save(cart);
@@ -95,12 +73,12 @@ public class CartServiceImpl1 implements CartService1{
         cartRepository1.deleteById(id);
     }
 
-	@Override
-	public void deleteCartItems(int sellerId) {
-		 cartRepository1.deleteAll();
-		
-	}
-
+//	@Override
+//	public void deleteCartItems(int sellerId) {
+//		 cartRepository1.deleteAll();
+//		
+//	}
+//
 	@Override
 	public void deleteSellerCartItems(Seller seller) {
 		cartRepository1.deleteBySeller(seller);
