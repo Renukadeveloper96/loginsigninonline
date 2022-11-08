@@ -43,21 +43,18 @@ public class CartController {
 	 @Autowired
 	    private AuthenticationService authenticationService;
 	 
-	 @PostMapping("/add")
-//	    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto,
-//	                                                 @RequestParam("token") String token) throws AuthenticationFailException, BookNotExistException {
-	    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto,
-                @RequestParam("token") String token) {       
-		 	authenticationService.authenticate(token);
-	        Seller seller = sellerService1.findSellerById(addToCartDto.getSellerId());
-	        Book book = bookService.findBookById(addToCartDto.getBookId());
-	        System.out.println("book to add"+  book.getName());
-	        cartService1.addToCart(addToCartDto, book, seller);
+	 @PostMapping("/addToCart")
+	    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto
+//                ,@RequestParam("token") String token
+                ) {       
+//		 	authenticationService.authenticate(token);
+	        cartService1.addToCart(addToCartDto);
 	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Added to cart"), HttpStatus.CREATED);
 	    }
 	 @GetMapping("/all")
-	    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) throws AuthenticationFailException {
-	        authenticationService.authenticate(token);
+//	    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) throws AuthenticationFailException {
+	   public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) throws AuthenticationFailException {
+//	        authenticationService.authenticate(token);
 	        Seller seller = authenticationService.getSeller(token);
 	        CartDto cartDto = cartService1.listCartItems(seller);
 	        return new ResponseEntity<CartDto>(cartDto,HttpStatus.OK);
@@ -68,8 +65,8 @@ public class CartController {
 	        authenticationService.authenticate(token);
 	        
 	        Seller seller = authenticationService.getSeller(token);
-	        Book book = bookService.findBookById(cartDto.getBookId());
-	        cartService1.updateCartItem(itemID,cartDto, seller,book);
+	        
+	        cartService1.updateCartItem(itemID,cartDto);
 	        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Book has been updated"), HttpStatus.OK);
 	    }
 

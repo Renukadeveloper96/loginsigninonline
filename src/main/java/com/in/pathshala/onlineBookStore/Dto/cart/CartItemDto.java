@@ -1,7 +1,6 @@
 package com.in.pathshala.onlineBookStore.Dto.cart;
 
 
-import com.in.pathshala.onlineBookStore.Dto.checkout.CheckoutItemDto;
 import com.in.pathshala.onlineBookStore.Dto.model.Book;
 import com.in.pathshala.onlineBookStore.Dto.model.Cart;
 

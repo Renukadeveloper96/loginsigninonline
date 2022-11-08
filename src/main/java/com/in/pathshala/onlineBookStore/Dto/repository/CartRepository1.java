@@ -10,7 +10,6 @@ import com.in.pathshala.onlineBookStore.Dto.model.Seller;
 public interface CartRepository1 extends JpaRepository<Cart, Integer>{
 
 	public List<Cart> findAllBySellerOrderByCreatedDateDesc(Seller seller);
-//	void deleteById(long id);
 	public void deleteBySeller(Seller seller);
 
 }

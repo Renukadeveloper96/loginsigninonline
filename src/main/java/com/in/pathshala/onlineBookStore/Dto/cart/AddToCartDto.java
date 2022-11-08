@@ -4,32 +4,26 @@ import javax.validation.constraints.NotBlank;
 
 public class AddToCartDto {
         @NotBlank
-	    private   Integer bookId;
+	    private   long bookId;
 	    private  Integer quantity;
-	    private Integer sellerId;
+	    private long sellerId;
 	    private Double cartAmount;
 	    public AddToCartDto() {
 	    }
 	    
-
-
-		public Integer getSellerId() {
+		public long getSellerId() {
 			return sellerId;
 		}
 
-
-
-		public void setSellerId(Integer sellerId) {
+		public void setSellerId(long sellerId) {
 			this.sellerId = sellerId;
 		}
 
-
-
-		public Integer getBookId() {
+		public long getBookId() {
 			return bookId;
 		}
 
-		public void setBookId(Integer bookId) {
+		public void setBookId(long bookId) {
 			this.bookId = bookId;
 		}
 
@@ -41,8 +35,6 @@ public class AddToCartDto {
 			this.quantity = quantity;
 		}
 		
-
-
 		public Double getCartAmount() {
 			return cartAmount;
 		}

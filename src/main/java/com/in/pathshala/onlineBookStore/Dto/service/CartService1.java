@@ -9,10 +9,10 @@ import com.in.pathshala.onlineBookStore.Dto.model.Seller;
 public interface CartService1 {
 
 //	public void deleteBookById(long id);
-	public void addToCart(AddToCartDto addToCartDto, Book book, Seller seller);
+	public void addToCart(AddToCartDto addToCartDto);
 	public CartDto listCartItems(Seller seller);
 //	void deleteById(long id); 
-	public void updateCartItem(int id,AddToCartDto cartDto, Seller seller,Book book);
+	public void updateCartItem(int id,AddToCartDto cartDto);
 	public void deleteCartItem(int id,long sellerId) ;
 //	public void deleteCartItems(int sellerId);
 	public void deleteSellerCartItems(Seller seller);
